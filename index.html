@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullah Alkhane | Senior Flutter Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        signal: {
+                            300: '#6fd0dc',
+                            400: '#22a4b6',
+                            500: '#148b9c',
+                            600: '#0f6f7d',
+                            700: '#0b5761',
+                            950: '#04181a',
+                        },
+                        deepblue: {
+                            300: '#5aa8d6',
+                            400: '#2683b8',
+                            500: '#016095',
+                            600: '#014d78',
+                            700: '#013a5c',
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #060b09;
+        }
+
+        h1, h2, h3, .tech-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glow-signal {
+            box-shadow: 0 0 20px rgba(20, 139, 156, 0.15);
+        }
+
+        .glow-signal-hover:hover {
+            box-shadow: 0 0 35px rgba(20, 139, 156, 0.25);
+            border-color: rgba(20, 139, 156, 0.5);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 18px rgba(20, 139, 156, 0.35);
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #070d0b; }
+        ::-webkit-scrollbar-thumb { background: #16261f; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #148b9c; }
+
+        /* Nav active tab */
+        .nav-link { position: relative; color: #94a3b8; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -6px;
+            width: 0%; height: 2px;
+            background: #148b9c;
+            transition: width 0.25s ease;
+        }
+        .nav-link:hover { color: #5fc4d1; }
+        .nav-link.active {
+            color: #5fc4d1;
+        }
+        .nav-link.active::after { width: 100%; }
+
+        /* Blinking status dot */
+        .status-dot { box-shadow: 0 0 0 0 rgba(20,139,156,0.7); animation: statusPulse 2s infinite; }
+        @keyframes statusPulse {
+            0% { box-shadow: 0 0 0 0 rgba(20,139,156,0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(20,139,156,0); }
+            100% { box-shadow: 0 0 0 0 rgba(20,139,156,0); }
+        }
+
+        /* Typing caret */
+        .caret { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Console scanlines on hero panel */
+        .scanlines {
+            background-image: repeating-linear-gradient(0deg, rgba(20,139,156,0.035) 0px, rgba(20,139,156,0.035) 1px, transparent 1px, transparent 3px);
+        }
+    </style>
+</head>
+
+<body class="text-slate-300 overflow-x-hidden">
+
+    <!-- Ambient grid background -->
+    <div
+        class="fixed inset-0 bg-[linear-gradient(to_right,#0d1512_1px,transparent_1px),linear-gradient(to_bottom,#0d1512_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0">
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-[#060b09]/85 backdrop-blur-md border-b border-signal-950/60 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-white font-bold text-xl tracking-wider tech-font">
+                ABDULLAH<span class="text-signal-400">.DEV</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-semibold">
+                <a href="#about" class="nav-link active pb-1" data-nav>About</a>
+                <a href="#skills" class="nav-link pb-1" data-nav>Skills</a>
+                <a href="#experience" class="nav-link pb-1" data-nav>Experience</a>
+                <a href="#projects" class="nav-link pb-1" data-nav>Projects</a>
+                <a href="#education" class="nav-link pb-1" data-nav>Education</a>
+                <a href="#contact" class="nav-link pb-1" data-nav>Contact</a>
+            </div>
+            <a href="Abdullah_Alkhane_Resume.pdf" target="_blank"
+                class="border border-signal-400/50 text-signal-400 px-4 py-2 rounded text-sm hover:bg-signal-400 hover:text-[#060b09] transition duration-300 tech-font glow-signal hidden sm:block">
+                Resume
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="about" class="relative min-h-screen flex items-center justify-center pt-28 pb-10 z-10 px-6">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+                <!-- Left: text -->
+                <div class="lg:col-span-7 space-y-5 order-2 lg:order-1">
+                    <div
+                        class="inline-flex items-center space-x-2 bg-signal-400/10 border border-signal-400/30 px-4 py-1.5 rounded-full text-xs text-signal-300 mono tracking-wider shadow-[0_0_10px_rgba(20,139,156,0.15)]">
+                        <span class="w-2 h-2 rounded-full bg-signal-400 status-dot"></span>
+                        <span>DUBAI, UAE &nbsp;|&nbsp; SYSTEM STATUS: SHIPPING</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight tech-font">
+                        Abdullah Alkhane <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-signal-300 to-deepblue-400 text-glow">Senior
+                            Flutter Developer</span>
+                    </h1>
+                    <p class="text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
+                        Building and shipping <span class="text-white font-semibold tech-font tracking-wide">cross-platform
+                            mobile & web apps</span> in Flutter — from civil-defense monitoring dashboards to e-commerce
+                        and booking platforms — with clean architecture and real-time data at the core.
+                    </p>
+
+                    <!-- Contact grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-sm mono text-slate-400">
+                        <a href="mailto:abdullahalkhane@gmail.com"
+                            class="flex items-center hover:text-signal-300 transition-colors cursor-pointer"><i
+                                class="fas fa-envelope text-signal-400 w-6"></i> abdullahalkhane@gmail.com</a>
+                        <a href="tel:+971547970112"
+                            class="flex items-center hover:text-signal-300 transition-colors cursor-pointer"><i
+                                class="fas fa-phone-alt text-signal-400 w-6"></i> +971 54 797 0112</a>
+                        <a href="https://www.linkedin.com/in/abdullah-alkhane-710474229/" target="_blank"
+                            class="flex items-center hover:text-signal-300 transition-colors cursor-pointer"><i
+                                class="fa-brands fa-linkedin text-signal-400 w-6"></i> linkedin.com/in/abdullah-alkhane</a>
+                        <span class="flex items-center text-slate-500"><i class="fas fa-location-dot text-signal-400 w-6"></i> Dubai, UAE</span>
+                    </div>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#projects"
+                            class="bg-gradient-to-r from-signal-500 to-deepblue-400 hover:from-signal-400 hover:to-deepblue-300 text-[#060b09] font-semibold px-8 py-3 rounded shadow-[0_0_15px_rgba(20,139,156,0.35)] transition-all duration-300 tech-font transform hover:-translate-y-1 tracking-wide">
+                            View Projects
+                        </a>
+                        <a href="#experience"
+                            class="bg-slate-900/80 backdrop-blur-sm hover:bg-slate-800 border border-slate-700 hover:border-signal-400/50 text-white font-semibold px-8 py-3 rounded transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-1 group">
+                            <i class="fas fa-briefcase text-signal-400 group-hover:text-signal-300"></i> Experience
+                        </a>
+                        <a href="Abdullah_Alkhane_Resume.pdf" target="_blank"
+                            class="bg-transparent border border-signal-400/50 hover:bg-signal-400/10 text-signal-300 font-semibold px-8 py-3 rounded transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-1 group tech-font">
+                            <i class="fas fa-download group-hover:animate-bounce"></i> Download CV
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: live console panel instead of a photo -->
+                <div class="lg:col-span-5 flex flex-col items-center order-1 lg:order-2 relative gap-6">
+                    <div class="w-full bg-slate-950/90 backdrop-blur-sm border border-signal-950 rounded-xl overflow-hidden glow-signal relative">
+                        <div class="scanlines absolute inset-0 pointer-events-none"></div>
+                        <div class="flex items-center justify-between px-4 py-3 border-b border-signal-950 bg-black/30 relative z-10">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-signal-500/70"></span>
+                            </div>
+                            <span class="mono text-[10px] text-slate-500">monitor.dart</span>
+                        </div>
+                        <div class="p-5 mono text-xs leading-relaxed relative z-10">
+                            <p class="text-slate-500">&gt; flutter build --release</p>
+                            <p class="text-signal-400 mt-1">✓ Compiling for Android & iOS...</p>
+                            <p class="text-signal-400">✓ Clean architecture verified</p>
+                            <p class="text-signal-400">✓ SignalR / Firebase connected</p>
+                            <p class="text-slate-500 mt-3">&gt; deploy --targets=playstore,appstore</p>
+                            <p class="text-white mt-1" id="typedLine">Build successful <span class="caret">▌</span></p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-px bg-signal-950/60 relative z-10">
+                            <div class="bg-slate-950 p-3 text-center">
+                                <p class="text-lg font-bold text-white tech-font">20<span class="text-signal-400">+</span></p>
+                                <p class="text-[9px] uppercase tracking-widest text-slate-500 mono mt-0.5">Apps Shipped</p>
+                            </div>
+                            <div class="bg-slate-950 p-3 text-center">
+                                <p class="text-lg font-bold text-white tech-font">5<span class="text-signal-400">+</span></p>
+                                <p class="text-[9px] uppercase tracking-widest text-slate-500 mono mt-0.5">Years Exp.</p>
+                            </div>
+                            <div class="bg-slate-950 p-3 text-center">
+                                <p class="text-lg font-bold text-white tech-font">4</p>
+                                <p class="text-[9px] uppercase tracking-widest text-slate-500 mono mt-0.5">Companies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats strip -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 pt-10 border-t border-signal-950/60">
+                <div class="text-center md:text-left">
+                    <p class="text-3xl md:text-4xl font-bold text-white tech-font">5<span class="text-signal-400">+</span></p>
+                    <p class="text-[11px] uppercase tracking-widest text-slate-500 mono mt-1">Years Experience</p>
+                </div>
+                <div class="text-center md:text-left">
+                    <p class="text-3xl md:text-4xl font-bold text-white tech-font">20<span class="text-signal-400">+</span></p>
+                    <p class="text-[11px] uppercase tracking-widest text-slate-500 mono mt-1">Apps Shipped</p>
+                </div>
+                <div class="text-center md:text-left">
+                    <p class="text-3xl md:text-4xl font-bold text-white tech-font">4</p>
+                    <p class="text-[11px] uppercase tracking-widest text-slate-500 mono mt-1">Companies</p>
+                </div>
+                <div class="text-center md:text-left">
+                    <p class="text-3xl md:text-4xl font-bold text-white tech-font">2</p>
+                    <p class="text-[11px] uppercase tracking-widest text-slate-500 mono mt-1">Platforms Mastered</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-20 bg-[#0a120e] border-y border-signal-950/60 relative z-10 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-wide tech-font uppercase">Technical
+                    Skills</h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-signal-500 to-deepblue-400 mx-auto rounded shadow-[0_0_10px_rgba(20,139,156,0.5)]">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+
+                <div class="bg-slate-950 p-6 rounded-xl border border-signal-950/60 hover:border-signal-400/40 hover:bg-[#0c1712] transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(20,139,156,0.1)] group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-signal-400/5 rounded-full blur-2xl group-hover:bg-signal-400/10 transition-colors"></div>
+                    <div class="w-12 h-12 rounded-lg bg-signal-400/10 flex items-center justify-center text-signal-400 text-xl mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-white font-bold mb-4 text-lg tech-font tracking-wide">Languages & Frameworks</h3>
+                    <ul class="space-y-3 mono text-xs text-slate-400">
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Dart, Flutter</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Kotlin, Swift, Java</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> HTML5, CSS3</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> PHP, Laravel</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-950 p-6 rounded-xl border border-signal-950/60 hover:border-signal-400/40 hover:bg-[#0c1712] transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(20,139,156,0.1)] group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-signal-400/5 rounded-full blur-2xl group-hover:bg-signal-400/10 transition-colors"></div>
+                    <div class="w-12 h-12 rounded-lg bg-signal-400/10 flex items-center justify-center text-signal-400 text-xl mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-mobile-screen-button"></i>
+                    </div>
+                    <h3 class="text-white font-bold mb-4 text-lg tech-font tracking-wide">Mobile Development</h3>
+                    <ul class="space-y-3 mono text-xs text-slate-400">
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Cross-Platform iOS & Android</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Clean Architecture</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> State Management</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> App Store & Google Play Deployment</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-950 p-6 rounded-xl border border-signal-950/60 hover:border-signal-400/40 hover:bg-[#0c1712] transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(20,139,156,0.1)] group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-signal-400/5 rounded-full blur-2xl group-hover:bg-signal-400/10 transition-colors"></div>
+                    <div class="w-12 h-12 rounded-lg bg-signal-400/10 flex items-center justify-center text-signal-400 text-xl mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="text-white font-bold mb-4 text-lg tech-font tracking-wide">Backend & Database</h3>
+                    <ul class="space-y-3 mono text-xs text-slate-400">
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Firebase</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> SQL, SQLite</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> RESTful APIs</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> JSON</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-950 p-6 rounded-xl border border-signal-950/60 hover:border-signal-400/40 hover:bg-[#0c1712] transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(20,139,156,0.1)] group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-signal-400/5 rounded-full blur-2xl group-hover:bg-signal-400/10 transition-colors"></div>
+                    <div class="w-12 h-12 rounded-lg bg-signal-400/10 flex items-center justify-center text-signal-400 text-xl mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-pen-ruler"></i>
+                    </div>
+                    <h3 class="text-white font-bold mb-4 text-lg tech-font tracking-wide">Tools & Design</h3>
+                    <ul class="space-y-3 mono text-xs text-slate-400">
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Git</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Figma, UI/UX Design</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Algorithms, OOP</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-950 p-6 rounded-xl border border-signal-950/60 hover:border-signal-400/40 hover:bg-[#0c1712] transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(20,139,156,0.1)] group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-signal-400/5 rounded-full blur-2xl group-hover:bg-signal-400/10 transition-colors"></div>
+                    <div class="w-12 h-12 rounded-lg bg-signal-400/10 flex items-center justify-center text-signal-400 text-xl mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-people-group"></i>
+                    </div>
+                    <h3 class="text-white font-bold mb-4 text-lg tech-font tracking-wide">Practices</h3>
+                    <ul class="space-y-3 mono text-xs text-slate-400">
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Problem Solving</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Project Management</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Code Review</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Team & Client Communication</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-950 p-6 rounded-xl border border-signal-950/60 hover:border-signal-400/40 hover:bg-[#0c1712] transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(20,139,156,0.1)] group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-signal-400/5 rounded-full blur-2xl group-hover:bg-signal-400/10 transition-colors"></div>
+                    <div class="w-12 h-12 rounded-lg bg-signal-400/10 flex items-center justify-center text-signal-400 text-xl mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-white font-bold mb-4 text-lg tech-font tracking-wide">Languages</h3>
+                    <ul class="space-y-3 mono text-xs text-slate-400">
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> Arabic — Native</li>
+                        <li class="flex items-center"><i class="fas fa-angle-right text-signal-400 mr-2 text-[10px]"></i> English — Professional</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-20 relative z-10 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10">
+                <div>
+                    <h2 class="text-3xl font-bold text-white uppercase tracking-wider">Key Project Highlights</h2>
+                    <p class="text-sm text-slate-400 mt-1">Shipped apps across delivery, e-commerce, real estate,
+                        travel, verification, and enterprise services.</p>
+                </div>
+                <div class="flex space-x-3 mt-4 sm:mt-0">
+                    <button id="prevBtn"
+                        class="w-10 h-10 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white flex items-center justify-center transition hover:text-signal-400">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="nextBtn"
+                        class="w-10 h-10 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white flex items-center justify-center transition hover:text-signal-400">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-hidden">
+                <div id="projectSlider" class="slider-container gap-6">
+
+                    <!-- 1 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-droplet text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">mykom.co</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">MyKom App</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Streamlined water and soft drink
+                                    delivery with express options, multiple payment methods, and an intuitive
+                                    interface.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Flutter</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Firebase</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">REST APIs</span>
+                        </div>
+                    </div>
+
+                    <!-- 2 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-bag-shopping text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">yourmode.net</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">Your Mode</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Simple, secure e-commerce app with
+                                    browsing and pay-after-approval features.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Flutter</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">REST APIs</span>
+                        </div>
+                    </div>
+
+                    <!-- 3 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-house text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">alhilalestates.com</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">Al Hilal Estates</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Property search app for buying or
+                                    renting, focused on usability and search efficiency.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Flutter</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Firebase</span>
+                        </div>
+                    </div>
+
+                    <!-- 4 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-gem text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">Google Play / App Store</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">HMS Boutique</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Shopping app offering a variety of
+                                    high-end lifestyle products.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Flutter</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">iOS & Android</span>
+                        </div>
+                    </div>
+
+                    <!-- 5 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-plane text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">App Store</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">Mallan App</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Travel app for organizing tours and
+                                    booking hotels.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Flutter</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">iOS</span>
+                        </div>
+                    </div>
+
+                    <!-- 6 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-stamp text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">wtheq.net</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">Wtheq App</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Easy document authentication with a
+                                    secure, user-friendly verification process.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Flutter</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Firebase</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Secure Verification</span>
+                        </div>
+                    </div>
+
+                    <!-- 7 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-handshake-angle text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">helpersapp.ae</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">Helpers App</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Platform connecting users with
+                                    qualified service providers — profile browsing, reviews, and easy booking.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Flutter</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">REST APIs</span>
+                        </div>
+                    </div>
+
+                    <!-- 8 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-microchip text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">hialmatajir.com</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">Al-Matajir</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Electronics e-commerce store and
+                                    companion app with secure purchasing and user-friendly browsing.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Laravel</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Flutter</span>
+                        </div>
+                    </div>
+
+                    <!-- 9 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-helmet-safety text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">rino-cm.com</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">Rino CM</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Corporate site for a construction and
+                                    contracting firm, highlighting project expertise and quality assurance.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">HTML/CSS</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">PHP</span>
+                        </div>
+                    </div>
+
+                    <!-- 10 -->
+                    <div class="min-w-[100%] sm:min-w-[48%] lg:min-w-[31.5%] bg-slate-950 rounded-xl overflow-hidden border border-signal-950/60 glow-signal-hover transition duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-32 flex items-center justify-center bg-gradient-to-br from-signal-500/10 to-deepblue-500/5 border-b border-signal-950/60">
+                                <i class="fas fa-satellite-dish text-4xl text-signal-400/70"></i>
+                                <span class="absolute top-3 left-3 bg-[#060b09]/80 border border-signal-400/40 text-signal-300 text-[10px] mono px-2 py-1 rounded uppercase tracking-wider">glorytech.ae</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-lg font-bold text-white mb-2">Glory Tech</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Technology solutions website
+                                    showcasing IT services, digital solutions, and client success stories.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex flex-wrap gap-1.5">
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">HTML/CSS</span>
+                            <span class="bg-slate-900 text-signal-400 text-[10px] px-2 py-0.5 rounded mono">Laravel</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <p class="mono text-[11px] text-slate-600 mt-8 leading-relaxed">
+                + Aqua Ads · Room App · Meem Noon · Zoo Ads · Jammbak · Daleel App · Burashid Training App · Mega Alpha · 2Go App · 4U App · Dway · Dr WP · Boutiqaat MDE · Dar Al Sharjah · Sama Turkey · Al-Matajir Al-Thalath
+            </p>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="py-20 bg-[#0a120e] border-y border-signal-950/60 relative z-10 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-14">
+
+                <!-- Left: Professional Journey -->
+                <div class="lg:col-span-3">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-10 uppercase tracking-wider tech-font">Professional
+                        Journey</h2>
+
+                    <div class="space-y-6 relative pl-9 before:absolute before:left-[15px] before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-800">
+
+                        <!-- NAFFCO -->
+                        <div class="relative group bg-slate-950 border border-signal-950/60 hover:border-signal-400/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-0.5">
+                            <div class="absolute -left-9 top-5 w-4 h-4 rounded-full bg-signal-500 border-4 border-[#0a120e] z-10 group-hover:bg-signal-400 transition"></div>
+                            <div class="flex items-start justify-between gap-3 mb-3">
+                                <div>
+                                    <h3 class="text-base font-bold text-white leading-tight">Senior Flutter Developer & Project Manager</h3>
+                                    <p class="text-slate-500 text-xs mt-0.5">NAFFCO FZCO · Dubai, UAE</p>
+                                </div>
+                                <span class="shrink-0 bg-signal-400/10 text-signal-400 mono text-[10px] px-2.5 py-1 rounded-full border border-signal-400/20">SEP 2025 – NOW</span>
+                            </div>
+                            <ul class="space-y-1.5 text-xs text-slate-400">
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Leads Flutter development for civil defense & industrial monitoring apps across Android/iOS</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Integrates real-time IoT data feeds into responsive dashboards with backend teams</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Owns delivery timelines, code reviews, and Flutter mentorship for the team</li>
+                            </ul>
+                        </div>
+
+                        <!-- Comedia -->
+                        <div class="relative group bg-slate-950 border border-signal-950/60 hover:border-signal-400/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-0.5">
+                            <div class="absolute -left-9 top-5 w-4 h-4 rounded-full bg-slate-700 border-4 border-[#0a120e] z-10 group-hover:bg-signal-400 transition"></div>
+                            <div class="flex items-start justify-between gap-3 mb-3">
+                                <div>
+                                    <h3 class="text-base font-bold text-white leading-tight">Senior Flutter Developer, PM & Web Developer</h3>
+                                    <p class="text-slate-500 text-xs mt-0.5">Comedia Information Technology · Dubai, UAE</p>
+                                </div>
+                                <span class="shrink-0 bg-slate-900 text-slate-400 mono text-[10px] px-2.5 py-1 rounded-full border border-slate-800">MAY 2023 – SEP 2025</span>
+                            </div>
+                            <ul class="space-y-1.5 text-xs text-slate-400">
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Led front-end development for multiple cross-platform Flutter apps</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Directed project management — timelines, goals, and team oversight</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Partnered with backend teams to streamline API integrations</li>
+                            </ul>
+                        </div>
+
+                        <!-- Lens Media -->
+                        <div class="relative group bg-slate-950 border border-signal-950/60 hover:border-signal-400/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-0.5">
+                            <div class="absolute -left-9 top-5 w-4 h-4 rounded-full bg-slate-700 border-4 border-[#0a120e] z-10 group-hover:bg-signal-400 transition"></div>
+                            <div class="flex items-start justify-between gap-3 mb-3">
+                                <div>
+                                    <h3 class="text-base font-bold text-white leading-tight">Web Design and Mobile Developer (iOS & Android)</h3>
+                                    <p class="text-slate-500 text-xs mt-0.5">Lens Media Production · Ajman, UAE</p>
+                                </div>
+                                <span class="shrink-0 bg-slate-900 text-slate-400 mono text-[10px] px-2.5 py-1 rounded-full border border-slate-800">JAN 2022 – 2023</span>
+                            </div>
+                            <ul class="space-y-1.5 text-xs text-slate-400">
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Led Flutter front-end delivery across web and mobile platforms</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Supported requirement gathering, feature planning, and timelines</li>
+                            </ul>
+                        </div>
+
+                        <!-- Afkar -->
+                        <div class="relative group bg-slate-950 border border-signal-950/60 hover:border-signal-400/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-0.5">
+                            <div class="absolute -left-9 top-5 w-4 h-4 rounded-full bg-slate-700 border-4 border-[#0a120e] z-10 group-hover:bg-signal-400 transition"></div>
+                            <div class="flex items-start justify-between gap-3 mb-3">
+                                <div>
+                                    <h3 class="text-base font-bold text-white leading-tight">Web Design and Mobile Developer (iOS & Android)</h3>
+                                    <p class="text-slate-500 text-xs mt-0.5">Afkar · Syria</p>
+                                </div>
+                                <span class="shrink-0 bg-slate-900 text-slate-400 mono text-[10px] px-2.5 py-1 rounded-full border border-slate-800">JAN 2019 – DEC 2021</span>
+                            </div>
+                            <ul class="space-y-1.5 text-xs text-slate-400">
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Built responsive, client-facing web and mobile applications</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-signal-400 text-[10px] mt-1"></i> Diagnosed and resolved complex cross-platform development issues</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Education & Details -->
+                <div id="education" class="lg:col-span-2">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-10 uppercase tracking-wider tech-font">Education
+                        & Details</h2>
+
+                    <div class="flex flex-col gap-6">
+
+                        <!-- Education card -->
+                        <div class="bg-slate-950 p-5 rounded-xl border border-signal-950/60 shadow-lg relative overflow-hidden group hover:border-signal-400/30 transition-all duration-300">
+                            <div class="absolute -right-10 -top-10 w-32 h-32 bg-signal-400/5 rounded-full blur-3xl group-hover:bg-signal-400/10 transition-colors"></div>
+                            <div class="flex items-start gap-4 relative z-10">
+                                <div class="w-11 h-11 rounded-full bg-signal-400/10 flex items-center justify-center text-signal-400 text-lg shrink-0 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-base font-bold text-white mb-1 tech-font">Bachelor's Degree, Software Engineering</h3>
+                                    <p class="text-signal-400 mono text-xs mb-2.5">AUST University · 2016 – 2021</p>
+                                    <p class="text-slate-400 text-xs leading-relaxed">Faculty of Informatics Engineering.
+                                        Graduation project: Auction-Based E-Marketing Application — Grade: Excellent.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Consolidated details card -->
+                        <div class="bg-slate-950 p-5 rounded-xl border border-signal-950/60 hover:border-signal-400/30 transition-colors">
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-5">
+                                <div>
+                                    <span class="flex items-center gap-1.5 text-slate-500 text-[10px] uppercase tracking-wider mb-1.5 mono"><i class="fas fa-briefcase text-signal-400"></i> Availability</span>
+                                    <span class="text-white font-medium text-sm">Open to opportunities</span>
+                                </div>
+                                <div>
+                                    <span class="flex items-center gap-1.5 text-slate-500 text-[10px] uppercase tracking-wider mb-1.5 mono"><i class="fas fa-location-dot text-signal-400"></i> Based In</span>
+                                    <span class="text-white font-medium text-sm">Dubai, UAE</span>
+                                </div>
+                                <div>
+                                    <span class="flex items-center gap-1.5 text-slate-500 text-[10px] uppercase tracking-wider mb-1.5 mono"><i class="fas fa-language text-signal-400"></i> Languages</span>
+                                    <span class="text-white font-medium text-sm">Arabic <span class="text-signal-400 mono text-xs">(Native)</span></span>
+                                </div>
+                                <div>
+                                    <span class="flex items-center gap-1.5 text-slate-500 text-[10px] uppercase tracking-wider mb-1.5 mono"><i class="fas fa-comments text-signal-400"></i> English</span>
+                                    <span class="text-white font-medium text-sm">Professional</span>
+                                </div>
+                            </div>
+                            <p class="mt-5 pt-5 border-t border-signal-950/60 text-xs text-slate-400 leading-relaxed">
+                                Open to Flutter, mobile, and full-stack web roles across the UAE and remote.
+                            </p>
+                        </div>
+
+                        <!-- Core strengths -->
+                        <div class="bg-slate-950 p-5 rounded-xl border border-signal-950/60 hover:border-signal-400/30 transition-colors">
+                            <h3 class="text-xs uppercase tracking-widest text-slate-500 mono mb-3">Core Strengths</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-signal-400/10 text-signal-300 text-[10px] px-2.5 py-1 rounded-full border border-signal-400/20">Problem Solving</span>
+                                <span class="bg-signal-400/10 text-signal-300 text-[10px] px-2.5 py-1 rounded-full border border-signal-400/20">Communication</span>
+                                <span class="bg-signal-400/10 text-signal-300 text-[10px] px-2.5 py-1 rounded-full border border-signal-400/20">Teamwork</span>
+                                <span class="bg-signal-400/10 text-signal-300 text-[10px] px-2.5 py-1 rounded-full border border-signal-400/20">Project Management</span>
+                                <span class="bg-signal-400/10 text-signal-300 text-[10px] px-2.5 py-1 rounded-full border border-signal-400/20">Clean Code Advocate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 relative z-10 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-wide tech-font uppercase">Let's Build
+                Something</h2>
+            <p class="text-slate-400 max-w-xl mx-auto mb-10">Open to Flutter, mobile, and full-stack web
+                opportunities across the UAE and remote.</p>
+            <div class="flex flex-wrap justify-center gap-4 mono text-sm">
+                <a href="mailto:abdullahalkhane@gmail.com"
+                    class="bg-slate-950 border border-signal-950/60 hover:border-signal-400/40 px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
+                    <i class="fas fa-envelope text-signal-400"></i> abdullahalkhane@gmail.com
+                </a>
+                <a href="tel:+971547970112"
+                    class="bg-slate-950 border border-signal-950/60 hover:border-signal-400/40 px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
+                    <i class="fas fa-phone text-signal-400"></i> +971 54 797 0112
+                </a>
+                <a href="https://www.linkedin.com/in/abdullah-alkhane-710474229/" target="_blank"
+                    class="bg-slate-950 border border-signal-950/60 hover:border-signal-400/40 px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
+                    <i class="fab fa-linkedin text-signal-400"></i> LinkedIn
+                </a>
+            </div>
+            <a href="Abdullah_Alkhane_Resume.pdf" target="_blank"
+                class="mt-10 inline-flex bg-transparent border border-signal-400/50 hover:bg-signal-400/10 text-signal-300 font-semibold px-8 py-3 rounded transition-all duration-300 items-center gap-2 transform hover:-translate-y-1 group tech-font">
+                <i class="fas fa-download group-hover:animate-bounce"></i> Download CV
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-signal-950/60 bg-black py-10 relative z-10 text-center text-[11px] text-slate-600 mono">
+        <div class="max-w-7xl mx-auto px-6 space-y-4">
+            <div class="flex justify-center flex-wrap gap-6 text-xs text-slate-400 mb-2">
+                <a href="mailto:abdullahalkhane@gmail.com" class="hover:text-signal-400"><i class="fas fa-envelope mr-1"></i> abdullahalkhane@gmail.com</a>
+                <a href="tel:+971547970112" class="hover:text-signal-400"><i class="fas fa-phone-alt mr-1"></i> +971 54 797 0112</a>
+                <a href="https://www.linkedin.com/in/abdullah-alkhane-710474229/" target="_blank" class="hover:text-signal-400"><i class="fa-brands fa-linkedin mr-1"></i> LinkedIn</a>
+            </div>
+            <p>&copy; 2026 Abdullah Mustafa Alkhane. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Project slider
+        const slider = document.getElementById('projectSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const sliderContainer = slider.parentElement;
+
+        let currentIndex = 0;
+        let autoPlayInterval;
+
+        function getCardsPerView() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 640) return 2;
+            return 1;
+        }
+
+        function updateSliderPosition() {
+            if (!slider.children[0]) return;
+            const cardWidth = slider.children[0].getBoundingClientRect().width;
+            const gap = 24;
+            slider.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+        }
+
+        function moveToNext() {
+            const totalCards = slider.children.length;
+            const cardsPerView = getCardsPerView();
+            if (currentIndex < totalCards - cardsPerView) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateSliderPosition();
+        }
+
+        function moveToPrev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                const totalCards = slider.children.length;
+                currentIndex = totalCards - getCardsPerView();
+            }
+            updateSliderPosition();
+        }
+
+        nextBtn.addEventListener('click', moveToNext);
+        prevBtn.addEventListener('click', moveToPrev);
+
+        window.addEventListener('resize', () => {
+            currentIndex = 0;
+            updateSliderPosition();
+        });
+
+        function startAutoPlay() { autoPlayInterval = setInterval(moveToNext, 3500); }
+        function stopAutoPlay() { clearInterval(autoPlayInterval); }
+
+        startAutoPlay();
+        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+        sliderContainer.addEventListener('mouseleave', startAutoPlay);
+        nextBtn.parentElement.addEventListener('mouseenter', stopAutoPlay);
+        nextBtn.parentElement.addEventListener('mouseleave', startAutoPlay);
+
+        // Nav scrollspy + click-to-select active tab
+        const navLinks = document.querySelectorAll('[data-nav]');
+        const sections = Array.from(navLinks).map(link => document.querySelector(link.getAttribute('href')));
+
+        function setActive(link) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => setActive(link));
+        });
+
+        const spyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    const activeLink = document.querySelector(`[data-nav][href="#${id}"]`);
+                    if (activeLink) setActive(activeLink);
+                }
+            });
+        }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+        sections.forEach(section => { if (section) spyObserver.observe(section); });
+
+        // Typing effect for console panel line
+        const typedLine = document.getElementById('typedLine');
+        const messages = ['Build successful', 'Deployed to Play Store', 'Deployed to App Store', 'All systems nominal'];
+        let msgIndex = 0;
+
+        function typeMessage(text, callback) {
+            let i = 0;
+            typedLine.innerHTML = '';
+            const caret = document.createElement('span');
+            caret.className = 'caret';
+            caret.textContent = '▌';
+            function step() {
+                if (i <= text.length) {
+                    typedLine.textContent = text.slice(0, i);
+                    typedLine.appendChild(caret);
+                    i++;
+                    setTimeout(step, 45);
+                } else if (callback) {
+                    setTimeout(callback, 1800);
+                }
+            }
+            step();
+        }
+
+        function cycleMessages() {
+            typeMessage(messages[msgIndex], () => {
+                msgIndex = (msgIndex + 1) % messages.length;
+                cycleMessages();
+            });
+        }
+        cycleMessages();
+    </script>
+
+    <!-- Floating Contact Widgets -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-center">
+        <a href="mailto:abdullahalkhane@gmail.com"
+            class="bg-[#ea4335] hover:bg-[#c5221f] text-white p-3 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center group"
+            aria-label="Send an Email">
+            <i class="fas fa-envelope text-lg w-6 h-6 flex items-center justify-center"></i>
+            <span class="absolute right-full mr-4 bg-slate-900 border border-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                Email Me
+            </span>
+        </a>
+
+        <a href="tel:+971547970112"
+            class="bg-signal-600 hover:bg-signal-700 text-white p-3 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center group"
+            aria-label="Call Me">
+            <i class="fas fa-phone-alt text-lg w-6 h-6 flex items-center justify-center"></i>
+            <span class="absolute right-full mr-4 bg-slate-900 border border-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                Call Me
+            </span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/abdullah-alkhane-710474229/" target="_blank"
+            class="bg-[#0A66C2] hover:bg-[#084b8f] text-white p-4 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center group"
+            aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin text-2xl"></i>
+            <span class="absolute right-full mr-4 bg-slate-900 border border-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                Connect on LinkedIn
+            </span>
+        </a>
+    </div>
+</body>
+
+</html>
